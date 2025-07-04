@@ -25,7 +25,7 @@ const app = express();
 // CORS configuration
 const corsOptions = {
   origin: [
-    'https://vault-client-navy.vercel.app',
+    'https://bm-vault-client.vercel.app',
     'https://vault-client.vercel.app',
     'http://localhost:3000',
     'http://localhost:5173'

@@ -140,13 +140,35 @@ CREATE TABLE IF NOT EXISTS branches (
 CREATE TABLE IF NOT EXISTS atms (
   id INT PRIMARY KEY AUTO_INCREMENT,
   client_id INT NOT NULL,
-  atm_code VARCHAR(255) NOT NULL,
+  atm_code VARCHAR(50) NOT NULL,
   location VARCHAR(255) NOT NULL,
   comment TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS atm_loading (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  client_id INT NOT NULL,
+  atm_id INT NOT NULL,
+  ones INT DEFAULT 0,
+  fives INT DEFAULT 0,
+  tens INT DEFAULT 0,
+  twenties INT DEFAULT 0,
+  forties INT DEFAULT 0,
+  fifties INT DEFAULT 0,
+  hundreds INT DEFAULT 0,
+  twoHundreds INT DEFAULT 0,
+  fiveHundreds INT DEFAULT 0,
+  thousands INT DEFAULT 0,
+  total_amount DECIMAL(15,2) NOT NULL,
+  loading_date DATE NOT NULL,
+  comment TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE,
-  UNIQUE KEY unique_atm_code_per_client (client_id, atm_code)
+  FOREIGN KEY (atm_id) REFERENCES atms(id) ON DELETE CASCADE
 );
 
 -- Create teams table
